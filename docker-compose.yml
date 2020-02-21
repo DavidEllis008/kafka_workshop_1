@@ -1,0 +1,22 @@
+version: '3'
+services:
+  kafka:
+    container_name: kafka
+    image: spotify/kafka
+    ports:
+      - "9120:9120"
+      - "2181:2181"
+  count:
+    container_name: count
+    build:
+      context: ./count_von_count
+      dockerfile: Dockerfile
+    links:
+      - kafka
+  addtime:
+    container_name: addtime
+    build:
+      context: ./timestamp
+      dockerfile: Dockerfile
+    links:
+      - kafka
